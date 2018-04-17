@@ -67,11 +67,23 @@ const create = (req, res, next) => {
 //     .catch(next)
 // }
 
-const changeOrder = (req, res, next) => {
+const updateOrder = (req, res, next) => {
   Place.findOne({
     _id: req.params.id
   }).then(place => {
     place.sortOrder = req.body.sortOrder
+    return place.save()
+  }).then((/* user */) =>
+    res.sendStatus(204)
+  ).catch(next)
+}
+
+const updateCategory = (req, res, next) => {
+  console.log('category is: ', req.body.place.category)
+  Place.findOne({
+    _id: req.params.id
+  }).then(place => {
+    place.category = req.body.place.category
     return place.save()
   }).then((/* user */) =>
     res.sendStatus(204)
@@ -88,7 +100,8 @@ module.exports = controller({
   index,
   show,
   create,
-  changeOrder,
+  updateOrder,
+  updateCategory,
   destroy,
   showDestinations,
   showPlacesOfInterest

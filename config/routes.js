@@ -13,6 +13,7 @@ module.exports = require('lib/wiring/routes')
 .resources('places')
 
 .patch('/updateSortOrder/:id', 'places#updateSortOrder')
+.patch('/updateCategory/:id', 'places#updateCategory')
 .get('/placesOfInterest', 'places#showPlacesOfInterest')
 .get('/destinations', 'places#showDestinations')
 
