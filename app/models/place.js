@@ -27,6 +27,18 @@ const placeSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  notes: {
+    type: String,
+    required: false
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  sortOrder: {
+    type: Number,
+    required: false
+  },
   _owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

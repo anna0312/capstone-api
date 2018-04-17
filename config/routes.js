@@ -12,6 +12,10 @@ module.exports = require('lib/wiring/routes')
 .resources('gmaps')
 .resources('places')
 
+.patch('/updateSortOrder/:id', 'places#updateSortOrder')
+.get('/placesOfInterest', 'places#showPlacesOfInterest')
+.get('/destinations', 'places#showDestinations')
+
 // users of the app have special requirements
 .post('/sign-up', 'users#signup')
 .post('/sign-in', 'users#signin')

@@ -27,6 +27,26 @@ const show = (req, res) => {
     })
 }
 
+const showPlacesOfInterest = (req, res, next) => {
+  console.log(req)
+  Place.find({'category': 'interested'})
+      .then(places => res.json({
+        places: places.map((e) =>
+          e.toJSON({ virtuals: true, user: req.user }))
+      }))
+      .catch(next)
+}
+
+const showDestinations = (req, res, next) => {
+  console.log(req)
+  Place.find({'category': 'going'}).sort('sortOrder')
+      .then(places => res.json({
+        places: places.map((e) =>
+          e.toJSON({ virtuals: true, user: req.user }))
+      }))
+      .catch(next)
+}
+
 const create = (req, res, next) => {
   const place = Object.assign(req.body.place, {
     _owner: req.user._id
@@ -40,12 +60,22 @@ const create = (req, res, next) => {
     .catch(next)
 }
 
-const update = (req, res, next) => {
-  delete req.body.place._owner  // disallow owner reassignment.
+// const update = (req, res, next) => {
+//   delete req.body.place._owner  // disallow owner reassignment.
+//   req.place.update(req.body.place)
+//     .then(() => res.sendStatus(204))
+//     .catch(next)
+// }
 
-  req.place.update(req.body.place)
-    .then(() => res.sendStatus(204))
-    .catch(next)
+const changeOrder = (req, res, next) => {
+  Place.findOne({
+    _id: req.params.id
+  }).then(place => {
+    place.sortOrder = req.body.sortOrder
+    return place.save()
+  }).then((/* user */) =>
+    res.sendStatus(204)
+  ).catch(next)
 }
 
 const destroy = (req, res, next) => {
@@ -58,8 +88,10 @@ module.exports = controller({
   index,
   show,
   create,
-  update,
-  destroy
+  changeOrder,
+  destroy,
+  showDestinations,
+  showPlacesOfInterest
 }, { before: [
   { method: setUser, only: ['index', 'show'] },
   { method: authenticate, except: ['index', 'show'] },
