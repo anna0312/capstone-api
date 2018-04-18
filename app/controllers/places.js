@@ -29,7 +29,7 @@ const show = (req, res) => {
 
 const showPlacesOfInterest = (req, res, next) => {
   console.log(req)
-  Place.find({'category': 'interested'})
+  Place.find({ 'category': 'interested', _owner: req.user.id })
       .then(places => res.json({
         places: places.map((e) =>
           e.toJSON({ virtuals: true, user: req.user }))
@@ -39,7 +39,7 @@ const showPlacesOfInterest = (req, res, next) => {
 
 const showDestinations = (req, res, next) => {
   console.log(req)
-  Place.find({'category': 'going'}).sort('sortOrder')
+  Place.find({ 'category': 'going', _owner: req.user.id }).sort('sortOrder')
       .then(places => res.json({
         places: places.map((e) =>
           e.toJSON({ virtuals: true, user: req.user }))
@@ -94,6 +94,7 @@ const updateCategory = (req, res, next) => {
 }
 
 const destroy = (req, res, next) => {
+  console.log('deleting')
   req.place.remove()
     .then(() => res.sendStatus(204))
     .catch(next)
