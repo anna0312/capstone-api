@@ -68,10 +68,13 @@ const create = (req, res, next) => {
 // }
 
 const updateOrder = (req, res, next) => {
+//  console.log('params', req.body.place.sortOrder)
   Place.findOne({
     _id: req.params.id
   }).then(place => {
-    place.sortOrder = req.body.sortOrder
+    place.sortOrder = req.body.place.sortOrder
+    console.log('id: ' + req.params.id + ', db order : ' + place.sortOrder)
+    console.log('id: ' + req.params.id + ', new order : ' + req.body.place.sortOrder)
     return place.save()
   }).then((/* user */) =>
     res.sendStatus(204)
@@ -79,7 +82,7 @@ const updateOrder = (req, res, next) => {
 }
 
 const updateCategory = (req, res, next) => {
-  console.log('category is: ', req.body.place.category)
+//  console.log('category is: ', req.body.place.category)
   Place.findOne({
     _id: req.params.id
   }).then(place => {

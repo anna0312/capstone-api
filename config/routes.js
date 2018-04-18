@@ -12,7 +12,7 @@ module.exports = require('lib/wiring/routes')
 .resources('gmaps')
 .resources('places')
 
-.patch('/updateSortOrder/:id', 'places#updateSortOrder')
+.patch('/updatePlaceOrder/:id', 'places#updateOrder')
 .patch('/updateCategory/:id', 'places#updateCategory')
 .get('/placesOfInterest', 'places#showPlacesOfInterest')
 .get('/destinations', 'places#showDestinations')
