@@ -39,6 +39,10 @@ const placeSchema = new mongoose.Schema({
     type: Number,
     required: false
   },
+  googleInfo: {
+    type: String,
+    required: false
+  },
   _owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
