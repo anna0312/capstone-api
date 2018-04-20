@@ -26,7 +26,7 @@ Back end repo: (https://github.com/anna0312/capstone-api)
 Javascript, CSS, Sass, Handlebars
 
 ### Back end
-Node, MongoDB, Mongoose
+Node, Express, MongoDB, Mongoose
 
 ## Routes
 
